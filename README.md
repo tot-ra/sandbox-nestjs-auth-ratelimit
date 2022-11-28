@@ -1,10 +1,20 @@
-## Installation
+## Usage
+### Logging in with CURL
+```bash
+# get jwt-token
+curl -X POST http://localhost:3000/auth/login -d '{"username": "admin", "password": "pass"}' -H "Content-Type: application/json"
+
+# get private
+curl http://localhost:3000/private -H "Authorization: Bearer jwt-token-here"
+```
+
+## Development
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+### Running the app
 
 ```bash
 # development
@@ -17,7 +27,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## Testing
 
 ```bash
 # unit tests
