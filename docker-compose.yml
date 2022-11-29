@@ -1,0 +1,30 @@
+version: '3'
+services:
+  outvio-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run start:dev
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app/
+    restart: always
+    depends_on:
+      - outvio-redis
+    networks:
+      outvio:
+        aliases:
+          - 'outvio-api'
+  outvio-redis:
+    image: redis:6-alpine
+    ports:
+      - 6379:6379
+    environment:
+      SERVICE_NAME: 'outvio-redis'
+    networks:
+      outvio:
+        aliases:
+          - 'outvio-redis'
+networks:
+  outvio:

@@ -1,4 +1,4 @@
 export default {
   JWTSecret: 'secretKey',
-  expiresIn: '60s'
+  expiresIn: '60m'
 };

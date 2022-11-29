@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PublicController } from './public.controller';
-import { AuthModule } from '../auth/auth.module';
-import { UsersModule } from '../users/users.module';
+import { AuthModule } from '../services/auth/auth.module';
+import { UsersModule } from '../services/users/users.module';
 
 describe('PublicController', () => {
     let appController: PublicController;

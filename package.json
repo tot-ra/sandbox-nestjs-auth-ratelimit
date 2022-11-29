@@ -1,5 +1,5 @@
 {
-  "name": "outvio-test-task",
+  "name": "outvio-api",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -21,11 +21,13 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@nestjs-modules/ioredis": "^1.0.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/jwt": "^9.0.0",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "ioredis": "^5.2.4",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "1.0.0",
