@@ -1,4 +1,8 @@
 ## Usage
+```bash
+docker-compose -f docker-compose.redis.yml -f docker-compose.yml up
+```
+
 ### Logging in with CURL
 ```bash
 # get jwt-token
@@ -11,7 +15,9 @@ curl http://localhost:3000/private -H "Authorization: Bearer jwt-token-here"
 ## Development
 
 ```bash
-$ npm install
+npm install
+docker-compose -f docker-compose.redis.yml up -d
+npm run start:dev
 ```
 
 ### Running the app

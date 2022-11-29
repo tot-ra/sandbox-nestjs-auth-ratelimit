@@ -4,7 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: npm run start:dev
+    command: npm run start
+    environment:
+      - REDIS_HOST=outvio-redis
     ports:
       - 3000:3000
     volumes:
@@ -16,15 +18,5 @@ services:
       outvio:
         aliases:
           - 'outvio-api'
-  outvio-redis:
-    image: redis:6-alpine
-    ports:
-      - 6379:6379
-    environment:
-      SERVICE_NAME: 'outvio-redis'
-    networks:
-      outvio:
-        aliases:
-          - 'outvio-redis'
 networks:
   outvio:
