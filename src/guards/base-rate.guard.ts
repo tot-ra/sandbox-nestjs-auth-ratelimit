@@ -1,6 +1,7 @@
 import { CanActivate, ExecutionContext, HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRedis } from "@liaoliaots/nestjs-redis";
 import Redis from "ioredis";
+import { Reflector } from "@nestjs/core";
 
 export const MIN_SEC = 60;
 export const HOUR_SEC = 60 * 60;
@@ -10,6 +11,7 @@ const MS_IN_SEC = 1000;
 export class BaseRateLimitGuard implements CanActivate {
     constructor(
         @InjectRedis() protected readonly redis: Redis,
+        protected reflector: Reflector
     ) {
     }
 

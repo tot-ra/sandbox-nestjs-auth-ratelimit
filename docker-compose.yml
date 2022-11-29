@@ -1,22 +1,22 @@
 version: '3'
 services:
-  outvio-api:
+  nestjs-api:
     build:
       context: .
       dockerfile: Dockerfile
     command: npm run start
     environment:
-      - REDIS_HOST=outvio-redis
+      - REDIS_HOST=redis
     ports:
       - 3000:3000
     volumes:
       - .:/app/
     restart: always
     depends_on:
-      - outvio-redis
+      - redis
     networks:
-      outvio:
+      nestjs:
         aliases:
-          - 'outvio-api'
+          - 'nestjs-api'
 networks:
-  outvio:
+  nestjs:

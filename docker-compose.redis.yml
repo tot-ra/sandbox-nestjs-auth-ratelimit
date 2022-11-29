@@ -1,14 +1,14 @@
 version: '3'
 services:
-  outvio-redis:
+  redis:
     image: redis:6-alpine
     ports:
       - 6379:6379
     environment:
-      SERVICE_NAME: 'outvio-redis'
+      SERVICE_NAME: 'redis'
     networks:
-      outvio:
+      nestjs:
         aliases:
-          - 'outvio-redis'
+          - 'redis'
 networks:
-  outvio:
+  nestjs:

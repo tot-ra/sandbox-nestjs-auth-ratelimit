@@ -25,6 +25,7 @@ describe('PublicController', () => {
     });
 
     it('should return "Hello World!"', () => {
-        expect(appController.getHello()).toBe('Hello World!');
+        expect(appController.getHello()).toBe(`Hello! Default IP ratelimiting here (100 req/h). 
+Try <a href="/one">one</a> <a href="/two">two</a> and <a href="/five">five</a> for custom ones`);
     });
 });
