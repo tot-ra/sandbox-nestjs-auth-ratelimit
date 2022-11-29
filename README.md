@@ -2,8 +2,7 @@
 
 ## Usage
 ```bash
-docker-compose -f docker-compose.redis.yml -f docker-compose.yml up
-open "http://localhost:3000"
+docker-compose -f docker-compose.redis.yml -f docker-compose.yml up -d && open "http://localhost:3000"
 ```
 
 ### Logging in with CURL
