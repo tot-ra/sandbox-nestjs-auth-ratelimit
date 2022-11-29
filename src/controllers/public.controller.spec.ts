@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PublicController } from './public.controller';
 import { AuthModule } from '../services/auth/auth.module';
 import { UsersModule } from '../services/users/users.module';
-import { IPGuard } from '../guards/ip.guard';
+import { IpRateGuard } from '../guards/ip-rate.guard';
 import { CanActivate } from "@nestjs/common";
 
 describe('PublicController', () => {
@@ -13,7 +13,7 @@ describe('PublicController', () => {
         const app: TestingModule = await Test.createTestingModule({
             imports: [AuthModule, UsersModule],
             controllers: [PublicController],
-        }).overrideGuard(IPGuard)
+        }).overrideGuard(IpRateGuard)
             .useValue(mock_IPGuard)
             .compile();
 
