@@ -16,7 +16,7 @@ describe('UsersService', () => {
     expect(service).toBeDefined();
   });
   it.each`
-    name      | returnVal
+    name       | returnVal
     ${'admin'} | ${{ userId: 1, username: 'admin', password: 'pass' }}
   `(
     'should call findOne for $name and return $returnVal',

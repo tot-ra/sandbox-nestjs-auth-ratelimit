@@ -3,29 +3,31 @@ import { PublicController } from './public.controller';
 import { AuthModule } from '../services/auth/auth.module';
 import { UsersModule } from '../services/users/users.module';
 import { IpRateGuard } from '../guards/ip-rate.guard';
-import { CanActivate } from "@nestjs/common";
+import { CanActivate } from '@nestjs/common';
 
 describe('PublicController', () => {
-    let appController: PublicController;
+  let appController: PublicController;
 
-    beforeEach(async () => {
-        const mock_IPGuard: CanActivate = { canActivate: jest.fn(() => true) };
-        const app: TestingModule = await Test.createTestingModule({
-            imports: [AuthModule, UsersModule],
-            controllers: [PublicController],
-        }).overrideGuard(IpRateGuard)
-            .useValue(mock_IPGuard)
-            .compile();
+  beforeEach(async () => {
+    const mock_IPGuard: CanActivate = { canActivate: jest.fn(() => true) };
+    const app: TestingModule = await Test.createTestingModule({
+      imports: [AuthModule, UsersModule],
+      controllers: [PublicController],
+    })
+      .overrideGuard(IpRateGuard)
+      .useValue(mock_IPGuard)
+      .compile();
 
-        appController = app.get<PublicController>(PublicController);
-    });
+    appController = app.get<PublicController>(PublicController);
+  });
 
-    it('should be defined', () => {
-        expect(appController).toBeDefined();
-    });
+  it('should be defined', () => {
+    expect(appController).toBeDefined();
+  });
 
-    it('should return "Hello World!"', () => {
-        expect(appController.getHello()).toBe(`Hello! Default IP ratelimiting here (100 req/h). 
+  it('should return "Hello World!"', () => {
+    expect(appController.getHello())
+      .toBe(`Hello! Default IP ratelimiting here (100 req/h). 
 Try <a href="/one">one</a> <a href="/two">two</a> and <a href="/five">five</a> for custom ones`);
-    });
+  });
 });
