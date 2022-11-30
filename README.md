@@ -19,6 +19,15 @@ curl http://localhost:3000/private -H "Authorization: Bearer jwt-token-here"
 
 ## Architecture
 
+### Ratelimiting
+Service (nextjs-api) uses synchroneous ratelimiting stored in redis, using [fixed window logic](https://developer.redis.com/develop/java/spring/rate-limiting/fixed-window/)
+This allows multiple instances of service to have centralized ratelimiting per tier.
+
+Pros - its simple to implement and its very memory-efficient.
+Cons - precision is not great, compared to sliding window. 
+This is why 3 fixed windows are used (per second, per minute and per hour)
+
+
 ### Service diagram
 
 ```mermaid
@@ -103,7 +112,7 @@ $ npm run start:prod
 # unit tests
 $ npm run test
 
-# e2e tests
+# ratelimiting tests
 $ npm run test:e2e
 
 # test coverage
