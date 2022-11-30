@@ -23,7 +23,7 @@ curl http://localhost:3000/private -H "Authorization: Bearer jwt-token-here"
 
 ```mermaid
 flowchart LR
-    nextjs-api -- read/write ratelimiting counters --> redis[(redis)]
+    nextjs-api -- update ratelimiting counters --> redis[(redis)]
 
     style redis fill:#0672e6,color:white
     style nextjs-api fill:#ffe43e,color:black
@@ -49,8 +49,8 @@ sequenceDiagram
     
     par
     ip-rate.guard -->> base-rate.guard: "3 x incrementHitsAtFixedWindow()"
-        base-rate.guard -->> redis:"get {tokenType}-{windowName}-{ID}-{windowStart}"  
-        base-rate.guard -->> redis:"set {tokenType}-{windowName}-{ID}-{windowStart}"  
+        base-rate.guard -->> redis:"incr {tokenType}-{windowName}-{ID}-{windowStart}"  
+        base-rate.guard -->> redis:"expire {tokenType}-{windowName}-{ID}-{windowStart}"  
     
     end
     
@@ -68,7 +68,7 @@ sequenceDiagram
     
     par
         token-rate.guard -->> base-rate.guard: "3 x incrementHitsAtFixedWindow()"
-        base-rate.guard -->> redis: "get & set"
+        base-rate.guard -->> redis: "incr & expire"
     end
     
     token-rate.guard -->> base-rate.guard: "3 x throwIfLimitExceeded"

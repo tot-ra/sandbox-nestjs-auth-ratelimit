@@ -15,7 +15,7 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', (done) => {
+  it.skip('/ (GET)', (done) => {
     request(app.getHttpServer())
       .get('/')
       .expect(200)
@@ -24,5 +24,28 @@ describe('AppController (e2e)', () => {
         expect(res.text).toContain('Hello');
         done();
       });
+  });
+
+  describe('ratelimiting', () => {
+    it('/ (GET)', async () => {
+      const server = app.getHttpServer();
+      const agent = request(server);
+      const requests = [];
+
+      for (let i = 0; i < 100; i++) {
+        requests.push(agent.get('/'));
+      }
+      const result = await Promise.all(requests);
+
+      let rateLimitedRequests = 0;
+      for (const response of result) {
+        if (response.statusCode === 429) {
+          rateLimitedRequests++;
+        }
+      }
+
+      console.log(`ratelimited ${rateLimitedRequests} requests`);
+      expect(rateLimitedRequests).toBeGreaterThan(70); // assume worst case, 3 sec for all requests, 10 calls per sec allowed
+    });
   });
 });

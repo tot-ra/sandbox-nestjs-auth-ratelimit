@@ -51,15 +51,15 @@ export class BaseRateLimitGuard implements CanActivate {
   protected async incrementHitsAtFixedWindow(
     tokenType: string,
     ID: string,
-    windowName: string = 'sec',
-    windowSizeSec: number = 1,
+    windowName = 'sec',
+    windowSizeSec = 1,
   ): Promise<number> {
     const windowStart = this.getWindowStart(windowSizeSec);
     const key = `${tokenType}-${windowName}-${ID}-${windowStart}`;
 
+    await this.redis.multi().incr(key).expire(key, windowSizeSec).exec();
     const storedHits = await this.redis.get(key);
     const hits = storedHits ? parseInt(storedHits) : 0;
-    await this.redis.set(key, hits + 1, 'EX', windowSizeSec);
 
     console.debug('Token rate limit calculation', {
       key,
