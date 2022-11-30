@@ -7,16 +7,6 @@
 docker-compose -f docker-compose.redis.yml -f docker-compose.yml up -d && open "http://localhost:3000"
 ```
 
-### Logging in with CURL
-```bash
-# get jwt-token
-curl -X POST http://localhost:3000/auth/login -d '{"username": "admin", "password": "pass"}' -H "Content-Type: application/json"
-
-# get private
-curl http://localhost:3000/private -H "Authorization: Bearer jwt-token-here"
-```
-
-
 ## Architecture
 
 ### Ratelimiting
@@ -89,6 +79,32 @@ sequenceDiagram
     nextjs-api -->> private-controller:""
 ```
 
+### REST API
+#### Public routes
+🟡 `POST /auth/login`
+
+returns access (jwt) token you can use in private routes
+```bash
+curl -X POST 'http://localhost:3000/auth/login' -d '{"username": "admin", "password": "pass"}' -H "Content-Type: application/json"
+```
+
+🟢 `GET /`
+
+🟢 `GET /one`
+
+🟢 `GET /two`
+
+🟢 `GET /five`
+
+#### Private routes - Access (jwt) token protected
+Pass `Authorization: Bearer ...` access token you got from /auth/login
+```bash
+curl http://localhost:3000/private -H "Authorization: Bearer access-token"
+```
+
+🟢 `GET /private/one`
+
+🟢 `GET /private/profile`
 
 ## Development
 
