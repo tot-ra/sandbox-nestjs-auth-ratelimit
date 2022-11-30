@@ -1,6 +1,6 @@
 # nestjs authentication / ratelimiting sandbox
 
-[![demo](https://img.youtube.com/vi/UY5tYPs6bmg/maxresdefault.jpg)](https://www.youtube.com/watch?v=3efkQ7wpRtE)
+[![demo](https://img.youtube.com/vi/UY5tYPs6bmg/maxresdefault.jpg)](https://www.youtube.com/watch?v=UY5tYPs6bmg)
 
 ## Usage
 ```bash
