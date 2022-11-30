@@ -22,11 +22,16 @@ curl http://localhost:3000/private -H "Authorization: Bearer jwt-token-here"
 ### Ratelimiting
 Service (nextjs-api) uses synchroneous ratelimiting stored in redis, using [fixed window logic](https://developer.redis.com/develop/java/spring/rate-limiting/fixed-window/)
 This allows multiple instances of service to have centralized ratelimiting per tier.
+Also, 3 fixed windows are used (per second, per minute and per hour), which means that not all hourly limits are available immediately.
 
-Pros - its simple to implement and its very memory-efficient.
-Cons - precision is not great, compared to sliding window. 
-This is why 3 fixed windows are used (per second, per minute and per hour)
+Pros
+- simple to implement
+- memory-efficient
+- spikes are handled with smaller window 
 
+Cons
+- quite high redis load
+- precision is not great, compared to sliding window
 
 ### Service diagram
 
