@@ -4,7 +4,10 @@
 
 ## Usage
 ```bash
-docker-compose -f docker-compose.redis.yml -f docker-compose.yml up -d && open "http://localhost:3000"
+nvm use
+npm i
+docker-compose -f docker-compose.redis.yml -f docker-compose.yml up -d
+open "http://localhost:3000"
 ```
 
 ## Architecture
