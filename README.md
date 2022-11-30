@@ -20,6 +20,7 @@ Pros
 - spikes are handled with smaller window 
 
 Cons
+- redis is a critical service, service has no fallback if its not operational
 - quite high redis load
 - precision is not great, compared to sliding window
 
@@ -78,6 +79,18 @@ sequenceDiagram
     token-rate.guard -->> base-rate.guard: "3 x throwIfLimitExceeded"
     nextjs-api -->> private-controller:""
 ```
+
+### Configuration
+Env variables can be passed via docker-compose.yml
+
+| Variable Name         | Description                                            | Default |
+| --------------------- |--------------------------------------------------------|---------|
+| IP_LIMIT_PER_SEC               | Max amount of requests per second for public endoints  | 10      |
+| IP_LIMIT_PER_MIN           | Max amount of requests per minute for public endoints  | 60      |
+| IP_LIMIT_PER_HOUR           | Max amount of requests per hour for public endoints    | 100     |
+| TOKEN_LIMIT_PER_SEC           | Max amount of requests per second for private endoints | 20      |
+| TOKEN_LIMIT_PER_MIN           | Max amount of requests per minute for private endoints  | 120     |
+| TOKEN_LIMIT_PER_HOUR           | Max amount of requests per hour for private endoints    | 200     |
 
 ### REST API
 #### Public routes
